@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Campaign ML - Model Comparison</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">Ad Campaign ML</h1>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#data-processing" class="nav-link">Data Processing</a></li>
+                <li><a href="#models" class="nav-link">Models</a></li>
+                <li><a href="#dataset" class="nav-link">Dataset</a></li>
+                <li><a href="#predict" class="nav-link">Predict</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <div class="container">
+            <h2>Ad Campaign Conversion Prediction</h2>
+            <p class="subtitle">Machine Learning Model Comparison Project</p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>📊 Dataset</h3>
+                    <p><strong>File:</strong> ad_campaign_data.csv</p>
+                    <p><strong>Records:</strong> 100,000</p>
+                    <p><strong>Features:</strong> Age, Gender, Location, Device Type, Impressions, Clicks, Engagement Duration, Sentiment Score, and more</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🎯 Project Goal</h3>
+                    <p>Compare 5 different ML models to predict ad campaign conversions. The goal is to identify which users are most likely to convert based on their interaction patterns with ads.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🤖 Models Compared</h3>
+                    <ul>
+                        <li>Random Forest</li>
+                        <li>Gradient Boosting</li>
+                        <li>Logistic Regression</li>
+                        <li>SVM (Support Vector Machine)</li>
+                        <li>Logistic Regression with PCA</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🏆 Best Model</h3>
+                    <p><strong>SVM</strong> achieved the highest accuracy:</p>
+                    <p class="highlight">Accuracy: 97.00% | F1 Score: 86.96% | ROC AUC: 99.98%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Processing Section -->
+    <section id="data-processing" class="section">
+        <div class="container">
+            <h2>Data Processing & Analysis</h2>
+            <p class="subtitle">Explore how we prepared and analyzed the dataset before model training</p>
+            
+            <!-- Step 1: Data Loading and Cleaning -->
+            <div class="processing-step">
+                <h3>1. Data Loading and Cleaning</h3>
+                <p>We loaded 100,000 records from the ad campaign dataset and performed essential data cleaning operations:</p>
+                <ul>
+                    <li><strong>Removed Null Values:</strong> Dropped rows with missing critical data</li>
+                    <li><strong>Data Type Conversion:</strong> Converted columns to appropriate data types (int, float)</li>
+                    <li><strong>Date Feature Extraction:</strong> Extracted day of week, month, and year from interaction timestamps</li>
+                </ul>
+            </div>
+
+            <!-- Step 2: Missing Data Analysis -->
+            <div class="processing-step">
+                <h3>2. Missing Data Analysis</h3>
+                <p>Analyzed data completeness to identify and understand missing values across all features.</p>
+                <div class="chart-box">
+                    <h4>Missing Data Heatmap</h4>
+                    <canvas id="missingDataChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Step 3: Feature Engineering -->
+            <div class="processing-step">
+                <h3>3. Feature Engineering</h3>
+                <p>Transformed raw features into machine learning-ready formats:</p>
+                <ul>
+                    <li><strong>Categorical Encoding:</strong> Applied OneHotEncoder to gender, location, device_type, and ad_category</li>
+                    <li><strong>Feature Scaling:</strong> Standardized numerical features (age, impressions, clicks, engagement_duration, etc.)</li>
+                    <li><strong>Feature Aggregation:</strong> Calculated user-level aggregations for clustering analysis</li>
+                </ul>
+            </div>
+
+            <!-- Step 4: Dimensionality Reduction -->
+            <div class="processing-step">
+                <h3>4. Dimensionality Reduction with PCA</h3>
+                <p>Applied Principal Component Analysis (PCA) to reduce feature dimensions while preserving variance. This helps visualize high-dimensional data in 2D space.</p>
+                <div class="chart-box">
+                    <h4>PCA 2D Visualization</h4>
+                    <canvas id="pcaChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Step 5: User Segmentation -->
+            <div class="processing-step">
+                <h3>5. User Segmentation with K-Means Clustering</h3>
+                <p>Used K-Means clustering to identify distinct user segments based on their behavior patterns. This helps understand different user groups for targeted marketing.</p>
+                
+                <div class="charts-container">
+                    <div class="chart-box">
+                        <h4>Cluster Distribution</h4>
+                        <p>Number of users in each cluster segment</p>
+                        <canvas id="clusterDistributionChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-box">
+                        <h4>Cluster Characteristics</h4>
+                        <p>Average metrics for each user segment</p>
+                        <canvas id="clusterCharacteristicsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="processing-step">
+                <h3>📊 Processing Summary</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Data Quality</h4>
+                        <p>Cleaned and validated 100,000 records</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Features Created</h4>
+                        <p>30+ engineered features from raw data</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>User Segments</h4>
+                        <p>Identified distinct user behavior clusters</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Ready for ML</h4>
+                        <p>Processed data ready for model training</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Models Section -->
+    <section id="models" class="section">
+        <div class="container">
+            <h2>Model Comparison</h2>
+            
+            <!-- Metrics Table -->
+            <div class="table-container">
+                <table class="metrics-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Accuracy</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1 Score</th>
+                            <th>ROC AUC</th>
+                            <th>Training Time (s)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="metricsTableBody">
+                        <!-- Data will be loaded from API -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-container">
+                <div class="chart-box">
+                    <h3>Accuracy Comparison</h3>
+                    <canvas id="accuracyChart"></canvas>
+                </div>
+                
+                <div class="chart-box">
+                    <h3>F1 Score vs ROC AUC</h3>
+                    <canvas id="f1RocChart"></canvas>
+                </div>
+                
+                <div class="chart-box full-width">
+                    <h3>Precision, Recall & F1 Score</h3>
+                    <canvas id="prfChart"></canvas>
+                </div>
+                
+                <div class="chart-box">
+                    <h3>Training Time Comparison</h3>
+                    <canvas id="timeChart"></canvas>
+                </div>
+                
+                <div class="chart-box full-width">
+                    <h3>ROC Curves Comparison</h3>
+                    <canvas id="rocCurvesChart"></canvas>
+                </div>
+                
+                <div class="chart-box full-width">
+                    <h3>Confusion Matrices</h3>
+                    <div id="confusionMatrices"></div>
+                </div>
+                
+                <div class="chart-box full-width">
+                    <h3>Feature Importance (Random Forest)</h3>
+                    <canvas id="featureImportanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dataset Section -->
+    <section id="dataset" class="section">
+        <div class="container">
+            <h2>Dataset Preview</h2>
+            <p class="subtitle">Explore the ad campaign dataset</p>
+            
+            <div class="dataset-info">
+                <div class="info-card">
+                    <h3>Dataset Information</h3>
+                    <p><strong>Total Records:</strong> <span id="totalRows">100,000</span></p>
+                    <p><strong>Preview Rows:</strong> <span id="previewRows">50</span></p>
+                    <p><strong>Features:</strong> Age, Gender, Location, Device Type, Impressions, Clicks, Engagement Duration, Sentiment Score, and more</p>
+                    <button onclick="loadDatasetPreview()" class="refresh-btn" style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: #00d4ff; color: #0f2027; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Refresh Dataset Preview</button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <div id="datasetLoading" style="text-align: center; padding: 2rem; color: #00d4ff;">Loading dataset...</div>
+                <table class="dataset-table" id="datasetTable" style="display: none;">
+                    <thead id="datasetHeaders">
+                        <!-- Headers will be loaded -->
+                    </thead>
+                    <tbody id="datasetBody">
+                        <!-- Data will be loaded -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Predict Section -->
+    <section id="predict" class="section">
+        <div class="container">
+            <h2>Try the Model</h2>
+            <p class="subtitle">Enter ad campaign features to predict conversion probability</p>
+            
+            <div class="predict-container">
+                <div class="form-container">
+                    <form id="predictionForm">
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" min="18" max="100" value="35" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender" required>
+                                <option value="0">0 (Male)</option>
+                                <option value="1">1 (Female)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <select id="location" name="location" required>
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="device_type">Device Type</label>
+                            <select id="device_type" name="device_type" required>
+                                <option value="0">0 (Mobile)</option>
+                                <option value="1">1 (Desktop)</option>
+                                <option value="2">2 (Tablet)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="impressions">Impressions</label>
+                            <input type="number" id="impressions" name="impressions" min="0" value="1000" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="clicks">Clicks</label>
+                            <input type="number" id="clicks" name="clicks" min="0" value="50" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="engagement_duration">Engagement Duration (seconds)</label>
+                            <input type="number" id="engagement_duration" name="engagement_duration" min="0" step="0.1" value="60" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="sentiment_score">Sentiment Score (0-1)</label>
+                            <input type="number" id="sentiment_score" name="sentiment_score" min="0" max="1" step="0.01" value="0.5" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="previous_interaction">Previous Interaction Score (0-1)</label>
+                            <input type="number" id="previous_interaction" name="previous_interaction" min="0" max="1" step="0.01" value="0.5" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ad_category">Ad Category</label>
+                            <select id="ad_category" name="ad_category" required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="model_select">Select Model</label>
+                            <select id="model_select" name="model_select" required>
+                                <option value="svm">SVM (Best - 97.00% Accuracy)</option>
+                                <option value="random_forest">Random Forest (96.67% Accuracy)</option>
+                                <option value="logistic_regression">Logistic Regression (95.33% Accuracy)</option>
+                                <option value="gradient_boosting">Gradient Boosting (54.00% Accuracy)</option>
+                                <option value="pca_lr">Logistic Regression with PCA (77.33% Accuracy)</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="predict-btn">Predict Conversion</button>
+                        <button type="button" class="clear-btn" onclick="clearForm()">Clear Form</button>
+                    </form>
+                </div>
+                
+                <div class="result-container">
+                    <div id="predictionResult" class="result-box hidden">
+                        <h3>Prediction Result</h3>
+                        <div class="result-content">
+                            <div class="result-item">
+                                <span class="label">Conversion Probability:</span>
+                                <span id="probability" class="value">-</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">Prediction:</span>
+                                <span id="prediction" class="value">-</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">Confidence:</span>
+                                <span id="confidence" class="value">-</span>
+                            </div>
+                            <div class="confidence-bar-container">
+                                <div id="confidenceBar" class="confidence-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Ad Campaign ML Project - Machine Learning Model Comparison</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
